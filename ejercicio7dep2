@@ -1,0 +1,127 @@
+#include <iostream>
+
+using namespace std;
+
+
+struct Nodo {//un nodo
+    int dato;
+    Nodo* siguiente;
+};
+
+
+class Cola {//clase con atributos privados y definimos solo el frente y fin
+private:
+    Nodo* frente;
+    Nodo* fin;
+
+public:
+    // generamos el contructor con valores vacios
+    Cola() {
+        frente = NULL;
+        fin = NULL;
+    }
+
+
+    ~Cola() {
+        while (!colaVacia()) {//mientras la cola no este vacia
+            int temp;
+            quitarCola(temp);
+        }
+    }
+
+
+    bool colaVacia() {
+        return (frente == NULL);//se verifica
+    }
+
+    // Método para insertar un elemento al final de la cola
+    void insertarCola(int n) {
+        Nodo* nuevo_nodo = new Nodo();
+        nuevo_nodo->dato = n;
+        nuevo_nodo->siguiente = NULL;
+
+        if (colaVacia()) {
+            frente = nuevo_nodo;
+        } else {
+            fin->siguiente = nuevo_nodo; // ->uso ese simbolo para mostrar el siguiente o su procedencia
+        }
+        fin = nuevo_nodo; // se actualiza
+        cout << "\tElemento " << n << " insertado correctamente." << endl;
+    }
+
+    void quitarCola(int &n) {
+        if (colaVacia()) return;//lo que hace es preguntar y si es ultimo extrae
+
+        n = frente->dato;
+        Nodo* aux = frente;
+
+        frente = frente->siguiente;
+
+        if (frente == NULL) {
+            fin = NULL; // Si se vació, el fin también apunta a NULL
+        }
+
+        delete aux; // sirve para borrar
+    }
+
+
+    void mostrarCola() {
+        Nodo* actual = frente;//esta parte ayuda a mostar los elementos
+        while (actual != NULL) {
+            cout << actual->dato << " <- ";
+            actual = actual->siguiente;
+        }
+        cout << "(fin)" << endl;
+    }
+};
+
+int main() {
+    Cola cCola;
+    int opcion, dato;
+
+    do {
+        
+        cout << " Cola " << endl;
+        cout << "1 Insertar elemento (Enqueue)" << endl;
+        cout << "2 Quitar elemento (Dequeue)" << endl;
+        cout << "3 Mostrar cola" << endl;
+        cout << "4 Salir" << endl;
+        cout << "Elija una opcion: ";
+        cin >> opcion;
+
+        switch(opcion) {
+            case 1:
+                cout << "\nDigita un numero: ";
+                cin >> dato;
+                cCola.insertarCola(dato);
+                break;
+
+            case 2:
+                if(cCola.colaVacia()) {
+                    cout << "\nLa cola esta vacia. No hay elementos para quitar." << endl;
+                } else {
+                    cCola.quitarCola(dato);
+                    cout << "\nElemento eliminado de la cola: " << dato << endl;
+                }
+                break;
+
+            case 3:
+                if(cCola.colaVacia()) {
+                    cout << "\nLa cola esta vacia." << endl;
+                } else {
+                    cout << "\nElementos actuales en la cola:" << endl;
+                    cCola.mostrarCola();
+                }
+                break;
+
+            case 4:
+                cout << "\nSaliendo del programa..." << endl;
+                break;
+
+            default:
+                cout << "\nOpcion no valida. Intente de nuevo." << endl;
+        }
+    } while(opcion != 4);//cuando se cumpla se cierra
+
+    return 0;
+}
