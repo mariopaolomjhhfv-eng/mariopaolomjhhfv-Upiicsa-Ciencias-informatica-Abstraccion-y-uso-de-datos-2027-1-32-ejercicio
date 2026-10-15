@@ -2,15 +2,13 @@
 #include <string>
 using namespace std;
 
-// Definición de autooo
 struct Auto {
     float precio;
     int anio;
 };
 
-// Definición  Persona
 struct Persona {
-    string nombre;//atributos
+    string nombre;
     string ap;
     string am;
     string genero;
@@ -19,9 +17,9 @@ struct Persona {
 
 int main() {
 
-    const int TOTAL = 2;//lo definimos entero
+    const int TOTAL = 2;
 
-    Auto autos[TOTAL];//el primero es la estructura o en poo clase
+    Auto autos[TOTAL];
     Persona personas[TOTAL];
     cout << "registro autos" << endl;
     for (int i = 0; i < TOTAL; i++) {
@@ -44,7 +42,7 @@ int main() {
         cout << "Ingresa el genero: ";
         cin >> personas[i].genero;
         cout << "Ingresa la edad: ";
-        cin >> personas[i].edad;//usa el metodo . para acceder a sus atributos
+        cin >> personas[i].edad;
     }
 
     cout << " lista " << endl;

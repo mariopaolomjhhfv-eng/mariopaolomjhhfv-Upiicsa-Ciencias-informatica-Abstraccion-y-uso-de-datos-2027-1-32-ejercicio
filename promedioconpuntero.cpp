@@ -11,7 +11,6 @@ int main() {
     float sum = 0, prom, med, max, min, aux;
 
    
-    //Ingresar datos de forma indirecta (puntero)
     for (int i = 0; i < N; i++) {
         cout << "Ingrese un número: " << i + 1 << ": ";
         cin >> *(p + i);             
@@ -40,7 +39,7 @@ int main() {
     }
     med = cp[N / 2];
 
-    cout << fixed << setprecision(2); //notación normal con 2 decimales
+    cout << fixed << setprecision(2); 
     cout << "Resultados:";
     cout << "\nSuma     : " << sum;
     cout << "\nPromedio : " << prom;

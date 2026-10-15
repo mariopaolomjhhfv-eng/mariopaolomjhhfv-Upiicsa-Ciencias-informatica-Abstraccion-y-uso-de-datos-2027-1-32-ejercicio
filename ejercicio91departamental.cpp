@@ -4,42 +4,38 @@
 using namespace std;
 
 int main() {
-    const int tamanio = 5;//definimos el tamaño
-    double numeros[tamanio];//le asiganmos una dimension que contiene los 5
+    const int tamanio = 5;
+    double numeros[tamanio];
     double suma = 0;
     double promedio, media, maximo, minimo;
 
-    //  Ingresar los 5 números en el arreglo
     cout << "promedio  con arreglo de 5 NUMEROS" << endl;
-    for (int i = 0; i < tamanio; i++) {//este bucle aumenta i hasta que sea tamanio
+    for (int i = 0; i < tamanio; i++) {
         cout << "Ingrese el numero " << (i + 1) << ": ";
         cin >> numeros[i];
-        suma += numeros[i]; // de los valores que ingresa se hace la suma y lo guardamos en suma
+        suma += numeros[i]; 
     }
 
-    // Calcula el promedio
     promedio = suma / tamanio;
 
-    // Determinar el Máximo y el Mínimo
     maximo = numeros[0];
     minimo = numeros[0];
     for (int i = 1; i < tamanio; i++) {
-        if (numeros[i] > maximo) {//se compara para ver si es maximo
+        if (numeros[i] > maximo) {
             maximo = numeros[i];
         }
-        if (numeros[i] < minimo) {//se compara para ver si es minimo
+        if (numeros[i] < minimo) {
             minimo = numeros[i];
         }
     }
 
-    // Calcular la Media
-    double copia[tamanio];//este nos sirve para poder alterar y ordenar
-    for (int i = 0; i < tamanio; i++) {// hasta que i alcance a tamanio
-        copia[i] = numeros[i];// a copia se le asigna el valor de numeros
+    double copia[tamanio];
+    for (int i = 0; i < tamanio; i++) {
+        copia[i] = numeros[i];
     }
-    sort(copia, copia + tamanio);//la funcion sort ordena la lista
+    sort(copia, copia + tamanio);
 
-    media = copia[2];//se busca el valor medio osea el indice 0
+    media = copia[2];
 
 
     cout << "Suma total: " << suma << endl;
