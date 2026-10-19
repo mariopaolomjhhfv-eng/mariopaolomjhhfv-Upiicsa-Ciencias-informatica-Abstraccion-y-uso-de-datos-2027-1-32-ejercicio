@@ -4,75 +4,78 @@
 #include <cmath>
 using namespace std;
 
-void generarCantor(string &s, int inicio, int fin)
-{
-    int longitud = fin - inicio + 1;
-    if (longitud < 3) return; 
+class Fractal {
+private:
+    void generarCantor(string &s, int inicio, int fin)
+    {
+        int longitud = fin - inicio + 1;
+        if (longitud < 3) return; 
 
-    int tercio = longitud / 3;
-    int inicio_medio = inicio + tercio;
-    int fin_medio = inicio + 2 * tercio - 1;
+        int tercio = longitud / 3;
+        int inicio_medio = inicio + tercio;
+        int fin_medio = inicio + 2 * tercio - 1;
 
-    for (int i = inicio_medio; i <= fin_medio; i++) {
-        s[i] = ' ';
+        for (int i = inicio_medio; i <= fin_medio; i++) {
+            s[i] = ' ';
+        }
+
+        generarCantor(s, inicio, inicio_medio - 1);
+        generarCantor(s, fin_medio + 1, fin);
     }
 
-    generarCantor(s, inicio, inicio_medio - 1);//
-    generarCantor(s, fin_medio + 1, fin);
-}
+    void sierpinski(vector<string>& matriz, int n, int x, int y) {
+        if (n == 1) {
+            matriz[x][y] = '*'; 
+            return;
+        }
 
-void ejecutarCantor() {
-    int n;
-    cout << "\npolvo" << endl;
-    cout << "Ingresa el nivel de profundidad: ";
-    cin >> n;
+        int tam = pow(2, n - 1);
 
-    int tam = pow(3, n);
-    string linea(tam, '-'); 
-
-    generarCantor(linea, 0, tam - 1);
-
-    cout << "\nResultado:\n";
-    for (int i = 0; i < n + 1; i++) {
-        cout << linea << endl;
-    }
-}
-
-
-void sierpinski(vector<string>& matriz, int n, int x, int y) {
-    if (n == 1) {
-        matriz[x][y] = '*'; 
-        return;
+        sierpinski(matriz, n - 1, x, y);                    
+        sierpinski(matriz, n - 1, x + tam, y - tam);        
+        sierpinski(matriz, n - 1, x + tam, y + tam);        
     }
 
-    int tam = pow(2, n - 1);
+public:
+    void ejecutarCantor() {
+        int n;
+        cout << "\npolvo" << endl;
+        cout << "Ingresa el nivel de profundidad: ";
+        cin >> n;
 
-    sierpinski(matriz, n - 1, x, y);                   
-    sierpinski(matriz, n - 1, x + tam, y - tam);       
-    sierpinski(matriz, n - 1, x + tam, y + tam);       
-}
+        int tam = pow(3, n);
+        string linea(tam, '-'); 
 
-void ejecutarSierpinski() {
-    int n;
-    cout << "\ntriangulo" << endl;
-    cout << "Ingrese el nivel de profundidad ";
-    cin >> n;
+        generarCantor(linea, 0, tam - 1);
 
-    int altura = pow(2, n);
-    int ancho = 2 * altura;
-
-    vector<string> matriz(altura, string(ancho, ' '));
-
-    sierpinski(matriz, n, 0, altura);
-
-    cout << "\nResultado:\n";
-    for (int i = 0; i < altura; i++) {
-        cout << matriz[i] << endl;
+        cout << "\nResultado:\n";
+        for (int i = 0; i < n + 1; i++) {
+            cout << linea << endl;
+        }
     }
-}
 
+    void ejecutarSierpinski() {
+        int n;
+        cout << "\ntriangulo" << endl;
+        cout << "Ingrese el nivel de profundidad ";
+        cin >> n;
+
+        int altura = pow(2, n);
+        int ancho = 2 * altura;
+
+        vector<string> matriz(altura, string(ancho, ' '));
+
+        sierpinski(matriz, n, 0, altura);
+
+        cout << "\nResultado:\n";
+        for (int i = 0; i < altura; i++) {
+            cout << matriz[i] << endl;
+        }
+    }
+};
 
 int main() {
+    Fractal objFractal;
     int opcion;
 
     do {
@@ -86,10 +89,10 @@ int main() {
 
         switch(opcion) {
             case 1:
-                ejecutarCantor();
+                objFractal.ejecutarCantor();
                 break;
             case 2:
-                ejecutarSierpinski();
+                objFractal.ejecutarSierpinski();
                 break;
             case 3:
                 cout << "\nSaliendo del programa" << endl;
