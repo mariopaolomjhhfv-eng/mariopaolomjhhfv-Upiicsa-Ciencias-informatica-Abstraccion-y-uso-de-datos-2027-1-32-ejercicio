@@ -1,27 +1,33 @@
-
 #include <iostream>
 #include <string>
 using namespace std;
 
-
-struct Auto {
+class Auto {
+private:
     float precio;
     int anio;
+
+public:
+    void capturarDatos() {
+        cout << "Ingrese el precio del auto: ";
+        cin >> precio;
+
+        cout << "Ingrese el anio del auto: ";
+        cin >> anio;
+    }
+
+    void mostrarDatos() {
+        cout << "\nDATOS DEL AUTO" << endl;
+        cout << "Precio: $" << precio << endl;
+        cout << "Anio: " << anio << endl;
+    }
 };
 
 int main() {
     Auto auto1;
 
-    cout << "Ingrese el precio del auto: ";
-    cin >> auto1.precio;
-
-    cout << "Ingrese el anio del auto: ";
-    cin >> auto1.anio;
-
-    cout << "\nDATOS DEL AUTO" << endl;
-    cout << "Precio: $" << auto1.precio << endl;
-    cout << "Anio: " << auto1.anio << endl;
+    auto1.capturarDatos();
+    auto1.mostrarDatos();
 
     return 0;
 }
-
