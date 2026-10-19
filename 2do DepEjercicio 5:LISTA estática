@@ -1,0 +1,108 @@
+#include <iostream>
+
+using namespace std;
+
+const int MAX = 100;
+
+struct Lista {
+    int elementos[MAX];
+    int nelem;
+};
+
+void inicializarLista(Lista &l);
+bool listaVacia(Lista l);
+bool listaLlena(Lista l);
+void insertarAlFinal(Lista &l, int valor);
+void insertarEnPosicion(Lista &l, int valor, int pos);
+void eliminarElemento(Lista &l, int pos);
+void mostrarLista(Lista l);
+int buscarElemento(Lista l, int valor);
+
+int main() {
+    Lista miLista;
+    inicializarLista(miLista);
+    int opcion, valor, pos;
+
+    do {
+        cout << "\n1. Inserta al final\n2. Inserta en posicion\n3. Elimina\n4. Buscar\n5. Mostra\n6. Salir\nOpcion: ";
+        cin >> opcion;
+
+        switch(opcion) {
+            case 1:
+                cin >> valor;
+                insertarAlFinal(miLista, valor);
+                break;
+            case 2:
+                cin >> valor >> pos;
+                insertarEnPosicion(miLista, valor, pos);
+                break;
+            case 3:
+                cin >> pos;
+                eliminarElemento(miLista, pos);
+                break;
+            case 4:
+                cin >> valor;
+                pos = buscarElemento(miLista, valor);
+                cout << pos << endl;
+                break;
+            case 5:
+                mostrarLista(miLista);
+                break;
+            case 6:
+                break;
+        }
+    } while(opcion != 6);
+
+    return 0;
+}
+
+void inicializarLista(Lista &l) {
+    l.nelem = 0;
+}
+
+bool listaVacia(Lista l) {
+    return (l.nelem == 0);
+}
+
+bool listaLlena(Lista l) {
+    return (l.nelem >= MAX);
+}
+
+void insertarAlFinal(Lista &l, int valor) {
+    if(listaLlena(l)) return;
+    l.elementos[l.nelem] = valor;
+    l.nelem++;
+}
+
+void insertarEnPosicion(Lista &l, int valor, int pos) {
+    if(listaLlena(l) || pos < 0 || pos > l.nelem) return;
+    for(int i = l.nelem; i > pos; i--) {
+        l.elementos[i] = l.elementos[i - 1];
+    }
+    l.elementos[pos] = valor;
+    l.nelem++;
+}
+
+void eliminarElemento(Lista &l, int pos) {
+    if(pos < 0 || pos >= l.nelem) return;
+    for(int i = pos; i < l.nelem - 1; i++) {
+        l.elementos[i] = l.elementos[i + 1];
+    }
+    l.nelem--;
+}
+
+int buscarElemento(Lista l, int valor) {
+    for(int i = 0; i < l.nelem; i++) {
+        if(l.elementos[i] == valor) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void mostrarLista(Lista l) {
+    for(int i = 0; i < l.nelem; i++) {
+        cout << l.elementos[i] << " ";
+    }
+    cout << endl;
+}
